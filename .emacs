@@ -96,7 +96,9 @@
   (setq chemacs-current-emacs-profile profile)
   (let* ((emacs-directory (file-name-as-directory
                            (chemacs-emacs-profile-key 'user-emacs-directory)))
-         (init-file       (expand-file-name "init.el" emacs-directory))
+         (init-file       (expand-file-name
+                           (or (chemacs-emacs-profile-key 'init-file) "init.el")
+                           emacs-directory))
          (custom-file-    (chemacs-emacs-profile-key 'custom-file init-file))
          (server-name-    (chemacs-emacs-profile-key 'server-name)))
     (setq user-emacs-directory emacs-directory)
@@ -115,6 +117,7 @@
       (chemacs-load-straight))
 
     ;; Start the actual initialization
+    (message " ++ chemacs-load-profile loading init-file at: %s" init-file)
     (load init-file)
 
     ;; Prevent customize from changing ~/.emacs (this file), but if init.el has
