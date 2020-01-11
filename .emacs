@@ -99,6 +99,7 @@
          (init-file       (expand-file-name
                            (or (chemacs-emacs-profile-key 'init-file) "init.el")
                            emacs-directory))
+         (preload-file    (chemacs-emacs-profile-key 'preload-file))
          (custom-file-    (chemacs-emacs-profile-key 'custom-file init-file))
          (server-name-    (chemacs-emacs-profile-key 'server-name)))
     (setq user-emacs-directory emacs-directory)
@@ -116,6 +117,11 @@
     (when (chemacs-emacs-profile-key 'straight-p)
       (chemacs-load-straight))
 
+    (when preload-file
+      ;; (message " ++ chemacs-load-profile loading preload-file at: %s" (expand-file-name preload-file))
+      (load (expand-file-name preload-file))
+      )
+    
     ;; Start the actual initialization
     (message " ++ chemacs-load-profile loading init-file at: %s" init-file)
     (load init-file)
