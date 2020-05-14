@@ -104,6 +104,28 @@ By symlinking you can easily update Chemacs with a =git pull=. Chemacs is not
 available on ELPA/MELPA because its special position in the Emacs boot process
 would cause a chicken and egg problem.
 
+There's a similar script for Windows called =install.ps1=.
+
+#+BEGIN_SRC powershell
+$ git clone https://github.com/plexus/chemacs.git
+$ cd chemacs
+$ .\install.ps1
+OK copying file to ~/.emacs
+#+END_SRC
+
+The Windows script copies the ~/.emacs file rather than symlinking it, as
+symlinks in Windows require elevated privileges. To update the file, run
+=install.ps1= a second time, if necessary - it uses hashing to detect
+changes and prompts for conformation before overwriting
+
+#+BEGIN_SRC powershell
+$ .\install.ps1
+WARN content is different between C:\Users\Me\.emacs and C:\Users\Me\repos\chemacs\.emacs
+WARN chemacs may already be installed OR something else may be in the way
+Do you want to overwrite C:\Users\Me\.emacs?: y
+OK updated chemacs files successfully.
+#+END_SRC
+
 ** Usage
 
 Chemacs adds an extra command line option to Emacs, =--with-profile=. Profiles
@@ -143,10 +165,10 @@ Other things you can configure
 - =env= An association list of environment variables. These will get set before
   loading the profile, so they can influence the initialization, and they are
   visible to any subprocesses spawned from Emacs.
-- =straight-p= Enable the [Straight](https://github.com/raxod502/straight.el)
-  functional package manager
+- =straight-p= Enable the [[https://github.com/raxod502/straight.el][Straight]]
+  functional package manager.
 
-Store =.emacs-profile.el= together with your dotfiles. If you're not yet keeping
+Store =.emacs-profiles.el= together with your dotfiles. If you're not yet keeping
 a version controlled directory of dotfiles, then check out
 [[https://github.com/plexus/dotfiles/blob/master/connect-the-dots][connect-the-dots]]
 for a helpful script to do that.
